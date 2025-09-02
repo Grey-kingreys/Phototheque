@@ -6,11 +6,18 @@ const createAlbumForm = (req, res) => {
 }
 
 const createAlbum = async (req, res) => {
-    console.log(req.body);
-    await Album.create({
-        title: req.body.albumTitle,
-    });
-  res.redirect('/');
+
+    try {
+        await Album.create({
+            title: req.body.albumTitle,
+            errors: req.flash('error'),
+        });
+    res.redirect('/');
+    } catch (error) {
+        console.error(error)
+        req.flash('error', 'Une erreur est survenue lors de la création de l\'album.')
+        res.redirect('/albums/create');
+    }
 };
 
 module.exports = {
