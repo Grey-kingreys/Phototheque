@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <%- include ('partials/head.ejs') %>
+</head>
+<body>
+    <%- include ('partials/nav.ejs') %> 
+
+
+    <div class="container">
+        <div class="row mt-4">
+            <div class="col">
+                <h1>Nouvel album</h1>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col">
+
+                <form method="POST" action="/albums/create" class="row g-3">
+                    <div class="col-auto">
+                        <label for="inputPassword2" class="visually-hidden">Titre</label>
+                        <input type="texte" class="form-control" placeholder="Titre de l'album" name="albumTitle" autofocus>
+                    </div>
+                    <div class="col-auto">
+                        <button type="submit" class="btn btn-primary mb-3">Confirm identity</button>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+
+    <%- include ('partials/scripts.ejs') %>
+</body>
+</html>
