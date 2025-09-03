@@ -1,7 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const path = require('path');
-const flash = require('connect-flash');
+var flash = require('connect-flash');
 const albumRoute = require('./routes/album.routes')
 const session = require('express-session');
 
@@ -15,6 +15,8 @@ mongoose.connect('mongodb://localhost/phototheque');
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
+app.use(flash())
+
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 app.use(express.static('public'));
@@ -26,19 +28,15 @@ app.use(session({
   saveUninitialized: true,
 }));
 
-app.use(flash());
-
-
-
-
 app.get('/', (req, res) => {
-    res.render('album', {title: 'Photothèque'})
+    res.redirect('/albums');
 })
 
 app.use('/', albumRoute)
 
 app.use((req, res) => {
     res.status(404);
+    req.flash('error', "page non trouvé")
     res.send('Page non trouvé')
 })
 
